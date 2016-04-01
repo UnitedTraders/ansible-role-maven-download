@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Alik Kurdyukov
+  description: Update for standard maven_artifact
+  company: United Traders
+  license: BSD
+  min_ansible_version: 2.0
+  platforms:
+  - name: GenericLinux
+    versions:
+    - any
+  galaxy_tags:
+    - maven
+    - download
+
+dependencies: []

@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - ../..
+
+  tasks:
+    - include: test-download-release.yml
+    - include: test-download-snapshot.yml

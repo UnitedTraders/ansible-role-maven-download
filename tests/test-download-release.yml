@@ -1,0 +1,13 @@
+---
+- name: Download small release maven artifact
+  maven_download: group_id=commons-cli artifact_id=commons-cli version=1.3.1 dest=./commons-cli-1.3.1.jar
+
+- name: Download small release maven artifact again
+  maven_download: group_id=commons-cli artifact_id=commons-cli version=1.3.1 dest=./commons-cli-1.3.1.jar
+  register: download_again
+
+- fail: msg="Download again shouldn't happen"
+  when: download_again.changed
+
+- name: Remove downloaded file
+  file: name=./commons-cli-1.3.1.jar state=absent

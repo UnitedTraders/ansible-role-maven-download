@@ -1,0 +1,26 @@
+---
+- name: Download small snapshot maven artifact
+  maven_download: group_id=commons-cli artifact_id=commons-cli version=1.4-SNAPSHOT repository_url=https://repository.apache.org/snapshots/ dest=./commons-cli-1.4-SNAPSHOT.jar
+
+- name: Download small snapshot maven artifact again
+  maven_download: group_id=commons-cli artifact_id=commons-cli version=1.4-SNAPSHOT repository_url=https://repository.apache.org/snapshots/ dest=./commons-cli-1.4-SNAPSHOT.jar
+  register: download_again
+
+- fail: msg="Download again shouldn't happen"
+  when: download_again.changed
+
+- name: Remove downloaded file
+  file: name=./commons-cli-1.4-SNAPSHOT.jar state=absent
+
+- name: Create empty file
+  file: name=./commons-cli-1.4-SNAPSHOT.jar state=touch
+
+- name: Download small snapshot maven artifact new version
+  maven_download: group_id=commons-cli artifact_id=commons-cli version=1.4-SNAPSHOT repository_url=https://repository.apache.org/snapshots/ dest=./commons-cli-1.4-SNAPSHOT.jar
+  register: download_new_version
+
+- fail: msg="Download new version should happen"
+  when: not download_new_version.changed
+
+- name: Remove downloaded file
+  file: name=./commons-cli-1.4-SNAPSHOT.jar state=absent
